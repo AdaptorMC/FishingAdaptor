@@ -22,7 +22,14 @@ public class ModFishTableInit implements FishTableProvider {
                 .addEntityAttribute(
                         EntityType.SKELETON,
                         EntityAttributes.GENERIC_SCALE,
-                        new EntityAttributeModifier(Main.id("random_spawn_bonus_scale"), 0.1, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                        new EntityAttributeModifier(Main.id("random_spawn_bonus_scale"), -0.9, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                );
+        FishTable fishes = new FishTable(Items.STICK)
+                .setResultEntities(EntityType.COD,EntityType.SLIME)
+                .addEntityAttribute(
+                        EntityAttributes.GENERIC_GRAVITY,
+                        -0.2,
+                        EntityAttributeModifier.Operation.ADD_VALUE
                 );
 
         FishTableRegistry.registerTable(cod);
@@ -30,6 +37,6 @@ public class ModFishTableInit implements FishTableProvider {
         FishTableRegistry.registerTable(pufferfish);
         FishTableRegistry.registerTable(tropical_fish);
         FishTableRegistry.registerTable(skeleton);
-
+        FishTableRegistry.registerTable(fishes);
     }
 }

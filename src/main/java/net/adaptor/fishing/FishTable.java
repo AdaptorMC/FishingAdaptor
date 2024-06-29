@@ -54,6 +54,25 @@ public class FishTable {
         return this;
     }
 
+    public FishTable addEntityAttribute(EntityType<?> entityType, RegistryEntry<EntityAttribute> attribute, double amount, EntityAttributeModifier.Operation operation) {
+        EntityAttributeModifier modifier = new EntityAttributeModifier(Main.id("fishing_"+attribute.getIdAsString()+"_bonus"),amount,operation);
+        if (attributeModifiers.containsKey(entityType)) {
+            attributeModifiers.get(entityType).put(attribute, modifier);
+        }
+        else {
+            attributeModifiers.put(entityType,Map.of(attribute,modifier));
+        }
+        return this;
+    }
+
+    public FishTable addEntityAttribute(RegistryEntry<EntityAttribute> attribute, double amount, EntityAttributeModifier.Operation operation) {
+        EntityAttributeModifier modifier = new EntityAttributeModifier(Main.id("fishing_"+attribute.getIdAsString()+"_bonus"),amount,operation);
+        for (Map.Entry<EntityType<?>,Map<RegistryEntry<EntityAttribute>, EntityAttributeModifier>> set:attributeModifiers.entrySet()) {
+            set.getValue().put(attribute,modifier);
+        }
+        return this;
+    }
+
     public FishTable setUp(ServerWorld world, PlayerEntity player,FishingBobberEntity fishingBobber) {
         this.world = world;
         this.player = player;
