@@ -12,7 +12,7 @@ import net.minecraft.item.Items;
 
 public class ModFishTableInit implements FishTableProvider {
     @Override
-    public void addFishTables() {
+    public void onInitialize() {
         FishTable cod = new FishTable(Items.COD).setResultEntities(EntityType.COD);
         FishTable salmon = new FishTable(Items.SALMON).setResultEntities(EntityType.SALMON);
         FishTable pufferfish = new FishTable(Items.PUFFERFISH).setResultEntities(EntityType.PUFFERFISH);

@@ -17,7 +17,7 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"net.adaptor.fishing.FishingAdaptor"
+			"net.adaptor.fishing.Main"
 		]
 	},
 	"mixins": [
