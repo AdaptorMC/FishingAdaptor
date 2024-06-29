@@ -12,14 +12,6 @@ base {
 }
 
 repositories {
-	maven {
-		name = 'TerraformersMC'
-		url = 'https://maven.terraformersmc.com/'
-	}
-
-	maven { url = 'https://maven.minecraftforge.net/' }
-    maven { url = "https://maven.kyrptonaught.dev" }
-	maven { url = "https://m2.dv8tion.net/releases" }
 }
 
 fabricApi {
