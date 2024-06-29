@@ -20,5 +20,6 @@ public class Main implements ModInitializer {
 	public void onInitialize() {
 		FishTableRegistry.registerTableProvider(new ModFishTableInit());
 		ServerEntityEvents.ENTITY_LOAD.register(FishingEvent::onFishHookedUp);
+		FishTableRegistry.initializeTables();
 	}
 }
