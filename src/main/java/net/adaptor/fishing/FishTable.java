@@ -55,7 +55,7 @@ public class FishTable {
     }
 
     public FishTable addEntityAttribute(EntityType<?> entityType, RegistryEntry<EntityAttribute> attribute, double amount, EntityAttributeModifier.Operation operation) {
-        EntityAttributeModifier modifier = new EntityAttributeModifier(Main.id("fishing_"+attribute.getIdAsString()+"_bonus"),amount,operation);
+        EntityAttributeModifier modifier = new EntityAttributeModifier(Main.id("fishing.bonus."+attribute.getIdAsString().replaceAll("minecraft:","")),amount,operation);
         if (attributeModifiers.containsKey(entityType)) {
             attributeModifiers.get(entityType).put(attribute, modifier);
         }
@@ -66,7 +66,7 @@ public class FishTable {
     }
 
     public FishTable addEntityAttribute(RegistryEntry<EntityAttribute> attribute, double amount, EntityAttributeModifier.Operation operation) {
-        EntityAttributeModifier modifier = new EntityAttributeModifier(Main.id("fishing_"+attribute.getIdAsString()+"_bonus"),amount,operation);
+        EntityAttributeModifier modifier = new EntityAttributeModifier(Main.id("fishing.bonus."+attribute.getIdAsString().replaceAll("minecraft:","")),amount,operation);
         for (Map.Entry<EntityType<?>,Map<RegistryEntry<EntityAttribute>, EntityAttributeModifier>> set:attributeModifiers.entrySet()) {
             set.getValue().put(attribute,modifier);
         }
