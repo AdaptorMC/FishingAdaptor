@@ -1,10 +1,14 @@
 package net.adaptor.fishing;
 
 import net.minecraft.entity.*;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 
 import java.util.*;
@@ -12,6 +16,7 @@ import java.util.*;
 public class FishTable {
     private final ItemStack tableItem;
     private final Map<EntityType<?>, Integer> resultEntities = new HashMap<>();
+    private final Map<EntityType<?>, Map<RegistryEntry<EntityAttribute>,EntityAttributeModifier>> attributeModifiers = new HashMap<>();
     protected ServerWorld world;
     protected PlayerEntity player;
     protected FishingBobberEntity fishingBobber;
@@ -39,6 +44,16 @@ public class FishTable {
         return this;
     }
 
+    public FishTable addEntityAttribute(EntityType<?> entityType, RegistryEntry<EntityAttribute> attribute, EntityAttributeModifier modifier) {
+        if (attributeModifiers.containsKey(entityType)) {
+            attributeModifiers.get(entityType).put(attribute, modifier);
+        }
+        else {
+            attributeModifiers.put(entityType,Map.of(attribute,modifier));
+        }
+        return this;
+    }
+
     public FishTable setUp(ServerWorld world, PlayerEntity player,FishingBobberEntity fishingBobber) {
         this.world = world;
         this.player = player;
@@ -57,6 +72,14 @@ public class FishTable {
                     livingEntity.setHeadYaw(player.headYaw);
                     livingEntity.setHealth(2f);
                     livingEntity.setAir(0);
+                    if (!attributeModifiers.isEmpty()) {
+                        for (Map.Entry<RegistryEntry<EntityAttribute>,EntityAttributeModifier> attributeSet:attributeModifiers.get(set.getKey()).entrySet()) {
+                            EntityAttributeInstance instance = livingEntity.getAttributeInstance(attributeSet.getKey());
+                            if (instance!=null) {
+                                instance.addPersistentModifier(attributeSet.getValue());
+                            }
+                        }
+                    }
                 }
                 itemEntity.setDespawnImmediately();
             }

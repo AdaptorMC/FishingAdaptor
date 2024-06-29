@@ -1,10 +1,14 @@
 package net.adaptor.fishing.init;
 
 import net.adaptor.fishing.FishTable;
+import net.adaptor.fishing.Main;
 import net.adaptor.fishing.api.FishTableProvider;
 import net.adaptor.fishing.api.FishTableRegistry;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Items;
+
 
 public class ModFishTableInit implements FishTableProvider {
     @Override
@@ -13,11 +17,19 @@ public class ModFishTableInit implements FishTableProvider {
         FishTable salmon = new FishTable(Items.SALMON).setResultEntities(EntityType.SALMON);
         FishTable pufferfish = new FishTable(Items.PUFFERFISH).setResultEntities(EntityType.PUFFERFISH);
         FishTable tropical_fish = new FishTable(Items.TROPICAL_FISH).setResultEntities(EntityType.TROPICAL_FISH);
+        FishTable skeleton = new FishTable(Items.BONE)
+                .setResultEntities(EntityType.SKELETON)
+                .addEntityAttribute(
+                        EntityType.SKELETON,
+                        EntityAttributes.GENERIC_SCALE,
+                        new EntityAttributeModifier(Main.id("random_spawn_bonus_scale"), 0.1, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                );
 
         FishTableRegistry.registerTable(cod);
         FishTableRegistry.registerTable(salmon);
         FishTableRegistry.registerTable(pufferfish);
         FishTableRegistry.registerTable(tropical_fish);
+        FishTableRegistry.registerTable(skeleton);
 
     }
 }
