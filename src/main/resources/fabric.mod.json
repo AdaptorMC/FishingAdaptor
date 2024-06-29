@@ -5,7 +5,8 @@
 	"name": "Fishing Adaptor",
 	"description": "survive extensions",
 	"authors": [
-		"Yunitrish"
+		"Yunitrish",
+		"Sypztep"
 	],
 	"contact": {
       "homepage": "https://github.com/AdaptorMC/FishingAdaptor/issues",
@@ -16,7 +17,7 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"net.adaptor.fishing.Main"
+			"net.adaptor.fishing.FishingAdaptor"
 		]
 	},
 	"mixins": [
