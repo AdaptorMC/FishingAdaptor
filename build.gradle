@@ -3,6 +3,10 @@ plugins {
 	id 'maven-publish'
 }
 
+repositories {
+	mavenCentral()  // Add this
+}
+
 version = project.mod_version + "+" + project.minecraft_version
 
 group = project.maven_group
@@ -52,11 +56,22 @@ jar {
 
 publishing {
 	publications {
-		create("mavenJava", MavenPublication) {
-			artifactId = project.archives_base_name
+		mavenJava(MavenPublication) {
 			from components.java
+			groupId = project.maven_group
+			artifactId = project.archives_base_name
+			version = project.mod_version
 		}
 	}
-	repositories {
-	}
 }
+
+//publishing {
+//	publications {
+//		create("mavenJava", MavenPublication) {
+//			artifactId = project.archives_base_name
+//			from components.java
+//		}
+//	}
+//	repositories {
+//	}
+//}
